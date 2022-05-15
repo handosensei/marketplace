@@ -1,0 +1,74 @@
+{
+  "contractName": "Collection",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.13+commit.abaa5c0e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Collection.sol\":\"Collection\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Collection.sol\":{\"keccak256\":\"0x09a582e4722874afdb7c88ee6bccbbfc7ff8c8a6a0f8b6c68bfd2cd55a213fec\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://959b9674ccc9b77c9706170e193f6aa0a3748f0c8f04b240fd1141fa376b8ca3\",\"dweb:/ipfs/QmNp3i24Q6Vu1GXe5Bba6wsk4rgHw5M1hojiJVaFnYPGyR\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122062e6a8521d6afb9f6def0274a27c5a789f467d84e2e07291155f164bf46cc44364736f6c634300080d0033",
+  "deployedBytecode": "0x6080604052600080fdfea264697066735822122062e6a8521d6afb9f6def0274a27c5a789f467d84e2e07291155f164bf46cc44364736f6c634300080d0033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "61:24:10:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "61:24:10:-:0;;;;;",
+  "source": "// SPDX-License-Identifier: GPL-3.0\npragma solidity 0.8.13;\n\ncontract Collection {\n\n}\n",
+  "sourcePath": "/Users/rchea/workspaces/alyra/marketplace/contracts/Collection.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/Collection.sol",
+    "exportedSymbols": {
+      "Collection": [
+        1937
+      ]
+    },
+    "id": 1938,
+    "license": "GPL-3.0",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1936,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".13"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "36:23:10"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "Collection",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 1937,
+        "linearizedBaseContracts": [
+          1937
+        ],
+        "name": "Collection",
+        "nameLocation": "70:10:10",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 1938,
+        "src": "61:24:10",
+        "usedErrors": []
+      }
+    ],
+    "src": "36:50:10"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.13+commit.abaa5c0e.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.7",
+  "updatedAt": "2022-05-12T17:06:57.414Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

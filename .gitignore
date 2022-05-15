@@ -1,0 +1,5 @@
+.env
+
+soljson-v*
+
+.DS_Store
