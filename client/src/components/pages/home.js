@@ -4,7 +4,6 @@ import SliderMainParticle from '../components/SliderMainParticle';
 import FeatureBox from '../components/FeatureBox';
 import CarouselCollection from '../components/CarouselCollection';
 import CarouselNew from '../components/CarouselNew';
-import AuthorList from '../components/authorList';
 import Footer from '../components/footer';
 import { createGlobalStyle } from 'styled-components';
 
@@ -116,52 +115,6 @@ const homeone= () => (
          <SliderMainParticle/>
       </section>
 
-      <section className='container no-bottom'>
-        <div className="row">
-            <div className="col-lg-2 col-sm-4 col-6 mb30">
-                <span className="box-url">
-                    <img src="./img/wallet/1.png" alt="" className="mb20"/>
-                    <h4>Metamask</h4>
-                </span>
-            </div>
-
-            <div className="col-lg-2 col-sm-4 col-6 mb30">
-                <span className="box-url">
-                    <img src="./img/wallet/2.png" alt="" className="mb20"/>
-                    <h4>Bitski</h4>
-                </span>
-            </div>       
-
-            <div className="col-lg-2 col-sm-4 col-6 mb30">
-                <span className="box-url">
-                    <img src="./img/wallet/3.png" alt="" className="mb20"/>
-                    <h4>Fortmatic</h4>
-                </span>
-            </div>    
-
-            <div className="col-lg-2 col-sm-4 col-6 mb30">
-                <span className="box-url">
-                    <img src="./img/wallet/4.png" alt="" className="mb20"/>
-                    <h4>WalletConnect</h4>
-                </span>
-            </div>
-
-            <div className="col-lg-2 col-sm-4 col-6 mb30">
-                <span className="box-url">
-                    <img src="./img/wallet/5.png" alt="" className="mb20"/>
-                    <h4>Coinbase Wallet</h4>
-                </span>
-            </div>
-
-            <div className="col-lg-2 col-sm-4 col-6 mb30">
-                <span className="box-url">
-                    <img src="./img/wallet/6.png" alt="" className="mb20"/>
-                    <h4>Arkane</h4>
-                </span>
-            </div>                                       
-        </div>
-      </section>
-
       <section className='container no-top no-bottom'>
         <div className='row'>
           <div className="spacer-double"></div>
@@ -170,18 +123,6 @@ const homeone= () => (
           </div>
         </div> 
         <CarouselNew/>
-      </section>
-
-      <section className='container no-top no-bottom'>
-        <div className='row'>
-          <div className="spacer-double"></div>
-          <div className='col-lg-12'>
-              <h2>Top Sellers</h2>
-          </div>
-          <div className='col-lg-12'>
-            <AuthorList/>
-          </div>
-        </div>
       </section>
 
       <section className='container no-top no-bottom'>

@@ -22,7 +22,19 @@ function ERC721Create(props) {
 
     const fileInput = useRef(null);
     const forceUpdate = useForceUpdate();
-  
+    const [isActive, setIsActive] = useState(false);
+    
+    function ButtonSubmit() {
+      if (isActive) {
+        return (<button type="button" id="submit" className="btn-main" onClick={onSubmit} >Create item</button>);  
+      }
+
+      return (<button className="btn-main" type="button" disabled>
+                <span className="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                <span className="sr-only">Loading...</span>
+              </button>);
+    }
+
     // handle input change
     const handleInputChange = (e, index) => {
       const { name, value } = e.target;
@@ -49,6 +61,7 @@ function ERC721Create(props) {
       
       getWeb3ERC721Factory()
         .then((data) => {
+            setIsActive(true);
             setInstanceContract(data[0]);
             setAddressUser(data[1][0]);  
             data[0].methods.getCollectionName(props.collectionAddress).call()
@@ -63,6 +76,7 @@ function ERC721Create(props) {
     
     const onSubmit = async (e) => {
       e.preventDefault();
+      setIsActive(false);
       const tokenIdToAffect = await instanceContract.methods.getNextTokenId(collectionAddress).call();
       
       const responseFile = await postFile(fileInput.current.files[0]);
@@ -174,7 +188,7 @@ function ERC721Create(props) {
 
         <div className="row">
           <div className="col-lg-7 offset-lg-1 mb-5">
-              <form id="form-create-item" className="form-border" action="#" onSubmit={onSubmit}>
+              <form id="form-create-item" className="form-border" action="#" >
                   <div className="field-set">
                       
                       <h5>Upload file</h5>
@@ -218,7 +232,7 @@ function ERC721Create(props) {
                       
                       <div className="spacer-10"></div>
                       
-                      <input type="submit" id="submit" className="btn-main" value="Create new item"/>
+                      <ButtonSubmit />
                   </div>
               </form>
           </div>                                        

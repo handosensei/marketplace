@@ -19,7 +19,7 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 function ERC721Display (props) {
-    const [instanceContract, setInstanceContract] = useState({});
+    //const [instanceContract, setInstanceContract] = useState({});
     const [userAddress, setUserAddress] = useState('');
     const [collectionAddress, setCollectionAddress] = useState('');
     const [collectionName, setCollectionName] = useState('');
@@ -27,8 +27,8 @@ function ERC721Display (props) {
     const [ownerAddress, setOwnerAddress] = useState("");
     const [attributes, setAttributes] = useState([]);
     const [imageUrl, setImageUrl] = useState('');
-    const [tokenId, setTokenId] = useState(0);
-    const [cid, setCid] = useState('');
+    //const [tokenId, setTokenId] = useState(0);
+    //const [cid, setCid] = useState('');
 
     function CanBuyOrSell() {
         if (ownerAddress !== userAddress) {
@@ -54,11 +54,11 @@ function ERC721Display (props) {
     useEffect(() => {
       
         setCollectionAddress(props.collectionAddress);
-        setTokenId(props.tokenId);
+        //setTokenId(props.tokenId);
         
         getWeb3ERC721Factory()
           .then((data) => {
-              setInstanceContract(data[0]);
+              //setInstanceContract(data[0]);
               setUserAddress(data[1][0]);  
 
                 data[0].methods.getCollectionName(props.collectionAddress).call()
@@ -68,11 +68,11 @@ function ERC721Display (props) {
                     .catch(console.error);
                     
                 data[0].methods.getCIDbyTokenId(props.collectionAddress, props.tokenId).call()
-                    .then((cid) => {
-                        setCid(cid); 
-                        console.log(cid);
+                    .then((data) => {
+                        //setCid(cid); 
+                        console.log(data);
                         
-                        const url = "https://gateway.pinata.cloud/ipfs/" + cid;
+                        const url = "https://gateway.pinata.cloud/ipfs/" + data;
                         axios.get(url)
                             .then(response => {
                                 setTokenName(response.data.name);

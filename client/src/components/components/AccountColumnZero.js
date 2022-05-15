@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
-import Clock from "./Clock";
+//import Clock from "./Clock";
 
 const Outer = styled.div`
   display: flex;
@@ -11,8 +11,8 @@ const Outer = styled.div`
   border-radius: 8px;
 `;
 
-export default class Responsive extends Component {
-   dummyData = [{
+function AccountColumnZero() {
+    const dummyData = [{
         deadline:"December, 30, 2021",
         authorLink: "#",
         nftLink: "#",
@@ -180,68 +180,56 @@ export default class Responsive extends Component {
         bid: "1/20",
         likes: 50
     }]
-
-  constructor(props) {
-    super(props);
-    this.state = {
-        nfts: this.dummyData,
-    height: 0
-    };
-    this.onImgLoad = this.onImgLoad.bind(this);
-    }
-
-    onImgLoad({target:img}) {
-        let currentHeight = this.state.height;
-        if(currentHeight < img.offsetHeight) {
-            this.setState({
-                height: img.offsetHeight
-            })
+    
+    const [tokens, ] = useState(dummyData);
+    const [height, setHeight] = useState(0);
+    
+    function onImgLoad(target) {
+        let currentHeight = height;
+        if(currentHeight < target.offsetHeight) {
+            setHeight(target.offsetHeight);
         }
     }
-
- render() {
-  return (
-    <div className='row'>
-        {this.state.nfts.map( (nft, index) => (
-            <div key={index} className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                <div className="nft__item">
-                    { nft.deadline &&
-                        <div className="de_countdown">
-                            <Clock deadline={nft.deadline} />
+ 
+    return (
+        <div className='row'>
+            {tokens.map( (nft, index) => (
+                <div key={index} className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                    <div className="nft__item">
+                        <div className="nft__item_wrap" style={{height: `${height}px`}}>
+                        <Outer>
+                            <span>
+                                <img onLoad={e => onImgLoad(e.target)}  src={nft.previewImg} className="lazy nft__item_preview" alt=""/>
+                            </span>
+                        </Outer>
                         </div>
-                    }
-                    <div className="author_list_pp">
-                        <span onClick={()=> window.open(nft.authorLink, "_self")}>                                    
-                            <img className="lazy" src={nft.authorImg} alt=""/>
-                            <i className="fa fa-check"></i>
-                        </span>
+                        <div className="nft__item_info">
+                            <span onClick={()=> window.open(nft.nftLink, "_self")}>
+                                <h4>{nft.title}</h4>
+                            </span>
+                            <div className="nft__item_price">
+                                {/*{nft.price}<span>{nft.bid}</span>*/}
+                                <span>&nbsp;</span>
+                            </div>
+                            <div className="nft__item_action">
+                                <span></span>
+                            </div>
+                            <div className="nft__item_like">
+                                <span>&nbsp;</span>
+                            </div>
+                            {/*<div className="nft__item_action">
+                                <span onClick={()=> window.open(nft.bidLink, "_self")}>Place a bid</span>
+                            </div>
+                            <div className="nft__item_like">
+                                <i className="fa fa-heart"></i><span>{nft.likes}</span>
+                            </div>*/}                            
+                        </div> 
                     </div>
-                    <div className="nft__item_wrap" style={{height: `${this.state.height}px`}}>
-                      <Outer>
-                        <span>
-                            <img onLoad={this.onImgLoad} src={nft.previewImg} className="lazy nft__item_preview" alt=""/>
-                        </span>
-                      </Outer>
-                    </div>
-                    <div className="nft__item_info">
-                        <span onClick={()=> window.open(nft.nftLink, "_self")}>
-                            <h4>{nft.title}</h4>
-                        </span>
-                        <div className="nft__item_price">
-                            {nft.price}<span>{nft.bid}</span>
-                        </div>
-                        <div className="nft__item_action">
-                            <span onClick={()=> window.open(nft.bidLink, "_self")}>Place a bid</span>
-                        </div>
-                        <div className="nft__item_like">
-                            <i className="fa fa-heart"></i><span>{nft.likes}</span>
-                        </div>                            
-                    </div> 
-                </div>
-            </div>  
-        ))}
-        
-    </div>              
+                </div>  
+            ))}
+            
+        </div>              
     );
+    
 }
-}
+export default AccountColumnZero;

@@ -12,15 +12,6 @@ const footer= () => (
                                     <span className="copy">&copy; Copyright 2021 - OpenUp by Codatomic</span>
                                 </span>
                             </div>
-                            <div className="de-flex-col">
-                                <div className="social-icons">
-                                    <span onClick={()=> window.open("", "_self")}><i className="fa fa-facebook fa-lg"></i></span>
-                                    <span onClick={()=> window.open("", "_self")}><i className="fa fa-twitter fa-lg"></i></span>
-                                    <span onClick={()=> window.open("", "_self")}><i className="fa fa-linkedin fa-lg"></i></span>
-                                    <span onClick={()=> window.open("", "_self")}><i className="fa fa-pinterest fa-lg"></i></span>
-                                    <span onClick={()=> window.open("", "_self")}><i className="fa fa-rss fa-lg"></i></span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

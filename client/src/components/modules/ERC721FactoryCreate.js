@@ -8,19 +8,31 @@ import { NotificationManager } from 'react-notifications';
 
 function ERC721FactoryCreate() {
 
-    const [instanceContract, setInstanceContract] = useState({});
+    const [instanceContract, setInstanceContract] = useState(null);
     const [addressUser, setAddressUser] = useState('');
     const [name, setName] = useState('');
     const [symbole, setSymbole] = useState('');
+
     
+    function ButtonSubmit() {
+      if (true) {
+        return (<button type="button" id="submit" className="btn-main" onClick={onSubmit} >Create new collection</button>);  
+      }
+
+      return (<button className="btn-main" type="button" disabled>
+                <span className="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                <span className="sr-only">Loading...</span>
+              </button>);
+    }
+
     useEffect(() => {
-        
-        getWeb3ERC721Factory()
-            .then((data) => {
-                setInstanceContract(data[0]);
-                setAddressUser(data[1][0]);
-            })
-            .catch(console.error);
+      
+      getWeb3ERC721Factory()
+        .then((data) => {
+            setInstanceContract(data[0]);
+            setAddressUser(data[1][0]);
+        })
+        .catch(console.error);
 
     }, []);
 
@@ -70,7 +82,7 @@ function ERC721FactoryCreate() {
 
         <div className="row">
           <div className="col-lg-7 offset-lg-1 mb-5">
-              <form id="form-create-item" className="form-border" action="#" onSubmit={onSubmit}>
+              <form id="form-create-item" className="form-border" action="#" >
                   <div className="field-set">
                       
                       <h5>Collection name</h5>
@@ -84,7 +96,9 @@ function ERC721FactoryCreate() {
                       </div>
                       <div className="spacer-10"></div>
 
-                      <input type="submit" id="submit" className="btn-main" value="Create new collection"/>
+                      <ButtonSubmit />
+                      
+
                   </div>
               </form>
           </div>                                        

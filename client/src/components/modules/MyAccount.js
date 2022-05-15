@@ -15,7 +15,7 @@ const GlobalStyles = createGlobalStyle`
 
 function MyAccount() {
   
-    const [instanceContract, setInstanceContract] = useState({});
+    //const [instanceContract, setInstanceContract] = useState({});
     const [userAddress, setUserAddress] = useState('');
     
 
@@ -23,7 +23,7 @@ function MyAccount() {
       
         getWeb3ERC721Factory()
           .then((data) => {
-              setInstanceContract(data[0]);
+      //        setInstanceContract(data[0]);
               setUserAddress(data[1][0]);  
           })
           .catch((err) => console.log(err));
@@ -43,13 +43,18 @@ function MyAccount() {
                     <div className="col-md-12">
                         <div className="d_profile">
                             <div className="profile_avatar">
-                                <div className="spacer-40"></div>
+
+                                <div className="d_profile_img">
+                                    <img src="../img/author/author-11.jpg" alt=""/>
+                                    <i className="fa fa-check"></i>
+                                </div>
+                                
                                 <div className="profile_name">
                                     <h4>
                                         <div className="clearfix"></div>
                                         <span id="wallet" className="profile_wallet">{userAddress}</span>
                                     </h4>
-                                </div>
+                                </div> 
                             </div>
                         </div>
                     </div>

@@ -3,8 +3,6 @@ import Breakpoint, { BreakpointProvider, setDefaultBreakpoints } from "react-soc
 import { Link } from '@reach/router';
 import useOnclickOutside from "react-cool-onclickoutside";
 
-import ConnectButton from './ConnectButton';
-
 setDefaultBreakpoints([
   { xs: 0 },
   { l: 1199 },
@@ -26,16 +24,84 @@ const NavLink = props => (
 
 const Header= function() {
 
-    const [userAddress, setUserAddress] = React.useState("0x92036F7e43Fc56FaC66E1a65BfF4C52Dd612047e");
-    const [openMenu, setOpenMenu] = React.useState(false);
+    const [userAddress, setUserAddress] = React.useState("");
     const [openMenu1, setOpenMenu1] = React.useState(false);
     const [openMenu2, setOpenMenu2] = React.useState(false);
     const [openMenu3, setOpenMenu3] = React.useState(false);
     const [showmenu, btn_icon] = useState(false);
 
-    const handleBtnClick = () => {
-      setOpenMenu(!openMenu);
+    async function connect(onConnected) {
+      if (!window.ethereum) {
+        alert("Get MetaMask!");
+        return;
+      }
+    
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+    
+      onConnected(accounts[0]);
     };
+  
+    async function checkIfWalletIsConnected(onConnected) {
+      if (window.ethereum) {
+        const accounts = await window.ethereum.request({
+          method: "eth_accounts",
+        });
+    
+        if (accounts.length > 0) {
+          const account = accounts[0];
+          onConnected(account);
+          return;
+        }
+      }
+    }
+
+    async function logout() {}
+    
+    function UserConnectLink() {
+      if (userAddress !== "") {
+        return (
+          <span>
+            <div className='navbar-item'>
+          <NavLink to="/erc721/collections/create">
+            Create
+            <span className='lines'></span>
+          </NavLink>
+        </div>
+
+        <div className='navbar-item'>
+        
+          <NavLink to={`/accounts/${userAddress}`}>
+            Account 
+            <span className='lines'></span>
+          </NavLink>
+        </div>
+          </span>
+          
+        );
+        
+      }
+
+      return (<div></div>);
+    }
+
+    function Connect({ setUserAddress }) {
+      return (
+        <button className="btn-main" onClick={() => connect(setUserAddress)}>
+          Connect wallet
+        </button>
+      );
+    };
+    
+    function Address({ userAddress }) {
+        return (
+            <button className="btn-main" onClick={ () => logout()}>
+                {userAddress.substring(0, 5)}…{userAddress.substring(userAddress.length - 4)}
+            </button>
+        );
+    }
+  
     const handleBtnClick1 = () => {
       setOpenMenu1(!openMenu1);
     };
@@ -44,9 +110,6 @@ const Header= function() {
     };
     const handleBtnClick3 = () => {
       setOpenMenu3(!openMenu3);
-    };
-    const closeMenu = () => {
-      setOpenMenu(false);
     };
     const closeMenu1 = () => {
       setOpenMenu1(false);
@@ -57,9 +120,6 @@ const Header= function() {
     const closeMenu3 = () => {
       setOpenMenu3(false);
     };
-    const ref = useOnclickOutside(() => {
-      closeMenu();
-    });
     const ref1 = useOnclickOutside(() => {
       closeMenu1();
     });
@@ -85,17 +145,16 @@ const Header= function() {
         header.classList.remove("sticky");
         totop.classList.remove("show");
       } 
-      if (window.pageYOffset > sticky) {
-        closeMenu();
-      }
+      
       });
+  
+      checkIfWalletIsConnected(setUserAddress);    
 
       return () => {
         window.removeEventListener("scroll", scrollCallBack);
       };
 
     }, []);
-
 
     return (
       <header id="myHeader" className='navbar white'>
@@ -104,40 +163,15 @@ const Header= function() {
             <BreakpointProvider>                
               <Breakpoint xl>
                 <div className='menu'>
-                  
+                
                   <div className='navbar-item'>
-                    <NavLink to="/erc721/collections/create">
-                      Create
+                    <NavLink to="/">
+                      Home
                       <span className='lines'></span>
                     </NavLink>
                   </div>
-
-                  <div className='navbar-item'>
                   
-                    <NavLink to={`/accounts/${userAddress}`}>
-                      Account 
-                      <span className='lines'></span>
-                    </NavLink>
-                  </div>
-
-                  <div className='navbar-item'>
-                      <div ref={ref}>
-                        <div className="dropdown-custom dropdown-toggle btn" 
-                          onMouseEnter={handleBtnClick} onMouseLeave={closeMenu}>
-                          Home
-                          <span className='lines'></span>
-                          {openMenu && (
-                          <div className='item-dropdown'>
-                            <div className="dropdown" onClick={closeMenu}>
-                              <NavLink to="/">Homepage</NavLink>
-                              <NavLink to="/home1">Homepage 1</NavLink>
-                              <NavLink to="/home2">Homepage 2</NavLink>
-                            </div>
-                          </div>
-                        )}
-                        </div>
-                      </div>
-                  </div>
+                  <UserConnectLink />
 
                   <div className='navbar-item'>
                     <div ref={ref1}>
@@ -215,7 +249,7 @@ const Header= function() {
             </BreakpointProvider>
 
             <div className='mainside'>
-              <ConnectButton />
+              { userAddress ? (<Address userAddress={userAddress} />) : (<Connect setUserAddress={setUserAddress}/>)}
             </div>
           </div>
 

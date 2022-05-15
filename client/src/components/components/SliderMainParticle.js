@@ -31,7 +31,7 @@ const slidermainparticle= () => (
     <div className="row align-items-center">
           <div className="col-md-6">
               <div className="spacer-single"></div>
-              <h6> <span className="text-uppercase color">Gigaland Market</span></h6>
+              <h6> <span className="text-uppercase color">OpenUp Marketplace</span></h6>
               <Reveal className='onStep' keyframes={fadeInUp} delay={300} duration={900} triggerOnce>
               <h1 className="col-white">Create, sell or collect digital items.</h1>
               </Reveal>
@@ -76,7 +76,7 @@ const slidermainparticle= () => (
           </div>
           <div className="col-md-6 xs-hide">
           <Reveal className='onStep d-inline' keyframes={inline} delay={300} duration={1200} triggerOnce>
-              <img src="./img/misc/women-with-vr.png" className="img-fluid" alt=""/>
+              <img src="./img/misc/legends.png" className="img-fluid" alt=""/>
           </Reveal>
           </div>
       </div>
