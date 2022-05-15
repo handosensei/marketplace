@@ -33,11 +33,11 @@ function ERC721Display (props) {
     function CanBuyOrSell() {
         if (ownerAddress !== userAddress) {
             return (
-                <div><a href="#"><span>Buy</span></a></div>
+                <div><a href="/"><span>Buy</span></a></div>
             );
         }
 
-        return (<div><a href="#" className="btn-main">Sell</a></div>);
+        return (<div><a href="/" className="btn-main">Sell</a></div>);
     }
 
     function CanAddItem() {
