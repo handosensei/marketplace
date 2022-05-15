@@ -17,9 +17,10 @@ Renseigner les variables d'environnements
 
 ## Lancement du projet
 
-``~ npm install``
-
-``~ npm run start``
+```shell
+~ npm install
+~ npm run start
+```
 
 ## TODO
 
@@ -32,10 +33,10 @@ Renseigner les variables d'environnements
 - [] Déploiement sur HEROKU
 
 ## Nice to have
-- [-] Système de royalties
+- [] Système de royalties
 - [] Création de collection : Gestion des champs obligatoires
 - [] Ajouter un loader : page de creation de collection
-- [] Ajouter un loader : page de creation de NFT
+- [x] Ajouter un loader : page de creation de NFT
 - [] Utilisation de ERC1155
 - [] Tri de NFT par collection
 - [] Système d'enchère
@@ -46,4 +47,10 @@ Renseigner les variables d'environnements
 ```shell
 ~ heroku create alyra-marketplace --buildpack mars/create-react-app
 ~ git subtree push --prefix client/ heroku master
+```
+
+## To deploy in Ropsten network
+
+```shell
+~ truffle deploy --network ropsten
 ```

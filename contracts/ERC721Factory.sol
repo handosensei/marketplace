@@ -7,20 +7,23 @@ contract ERC721Factory {
 
     event CollectionCreated(address contractAddress, address owner);
     event Minted(address owner, uint256 tokenId);
+    
+    address[] private contractAddresses;
 
-    mapping(address => ERC721Token) public contracts;
+    mapping(address => ERC721Token) private contracts;
 
     // ERC721 contract address => (tokenID => owner address)
     mapping(address => mapping(uint256 => address)) private owners;
-
-    // owner address => (ERC721 contract address => token balance)
-    mapping(address => mapping(address => uint256)) private balances;
+    
+    // owner address => (ERC721 contract address => tableau de token id)
+    mapping(address => mapping(address => uint256[])) private balances;
     
     function deployCollection(string memory _name, string memory _symbol) external payable returns(address) {
         bytes32 _salt = keccak256(abi.encodePacked(_name));
         ERC721Token token = new ERC721Token{salt: _salt}(_name, _symbol);
         address contractAddress = address(token);
         contracts[contractAddress] = token;
+        contractAddresses.push(contractAddress);
 
         emit CollectionCreated(contractAddress, msg.sender);
 
@@ -35,11 +38,11 @@ contract ERC721Factory {
         return contracts[_address].totalSupply() + 1;
     }
 
-    function mint(address _address, string memory _cid) public {
-        uint256 tokenId = contracts[_address].mint(_cid);
-        owners[_address][tokenId] = msg.sender;
-        balances[msg.sender][_address] += 1;
-        
+    function mint(address _contractAddress, string memory _cid) public {
+        uint256 tokenId = contracts[_contractAddress].mint(_cid);
+        owners[_contractAddress][tokenId] = msg.sender;
+        balances[msg.sender][_contractAddress].push(tokenId);
+
         emit Minted(msg.sender, tokenId);
     }
 
@@ -51,5 +54,9 @@ contract ERC721Factory {
         require(owners[_address][_tokenId] != address(0), "Token ID not found");
 
         return owners[_address][_tokenId];
+    }
+
+    function getContratAddresses() public view returns(address[] memory) {
+        return contractAddresses;
     }
 }

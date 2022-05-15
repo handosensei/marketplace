@@ -64,23 +64,16 @@ const Header= function() {
         return (
           <span>
             <div className='navbar-item'>
-          <NavLink to="/erc721/collections/create">
-            Create
-            <span className='lines'></span>
-          </NavLink>
-        </div>
+              <a href="/erc721/collections/create">Create</a>
+              <span className='lines'></span>  
+            </div>
 
-        <div className='navbar-item'>
-        
-          <NavLink to={`/accounts/${userAddress}`}>
-            Account 
-            <span className='lines'></span>
-          </NavLink>
-        </div>
+            <div className='navbar-item'>
+              <a href={`/accounts/${userAddress}`}>Account</a>
+              <span className='lines'></span>
+            </div>
           </span>
-          
         );
-        
       }
 
       return (<div></div>);
