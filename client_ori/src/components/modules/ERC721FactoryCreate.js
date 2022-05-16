@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-
+import getWeb3 from "./getWeb3";
+import ERC721Factory from "../../contracts/Factory.json";
 import Footer from '../components/footer';
-import getWeb3ERC721Factory from "../../getWeb3ERC721Factory";
-
 import 'react-notifications/lib/notifications.css';
 import { NotificationManager } from 'react-notifications';
 
 function ERC721FactoryCreate() {
 
-    const [instanceContract, setInstanceContract] = useState(null);
     const [addressUser, setAddressUser] = useState('');
     const [name, setName] = useState('');
     const [symbole, setSymbole] = useState('');
@@ -25,18 +23,30 @@ function ERC721FactoryCreate() {
               </button>);
     }
 
+    const getWeb3ERC721Factory = async () => {
+    
+      try {
+          const web3 = await getWeb3();
+          const networkId = await web3.eth.net.getId();
+          const deployedNetwork = Factory.networks[networkId];
+          const instanceContract = new web3.eth.Contract(
+              ERC721Factory.abi,
+              deployedNetwork && deployedNetwork.address,
+          );
+          
+          return instanceContract;
+      } catch (error) {
+          alert(`Failed to load web3, accounts, or contract. Check console for details.`);
+          console.error(error);
+      }
+    };
+  
     useEffect(() => {
       
-      getWeb3ERC721Factory()
-        .then((data) => {
-            setInstanceContract(data[0]);
-            setAddressUser(data[1][0]);
-        })
-        .catch(console.error);
-
     }, []);
 
     const create = async (name, symbole) => {
+
         const response = instanceContract.methods.deployCollection(name, symbole).send({ from: addressUser })
           .catch((err) => {
             NotificationManager.error('Error method', 'Add collection failed');

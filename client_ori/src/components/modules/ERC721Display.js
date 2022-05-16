@@ -44,7 +44,7 @@ function ERC721Display (props) {
         // todo : Qui est le owner du contrat de cette collection ?
         if (true) {
             return (
-                <Link to={`/erc721/${collectionAddress}/create`} ><span>Add item to your collection</span></Link>
+                <a href={`/erc721/${collectionAddress}/create`} ><span>Add item to your collection</span></a>
             );
         }
 
@@ -97,6 +97,7 @@ function ERC721Display (props) {
           })
           .catch(console.error);
   
+        
     }, []);
 
     return (

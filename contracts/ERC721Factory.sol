@@ -8,22 +8,42 @@ contract ERC721Factory {
     event CollectionCreated(address contractAddress, address owner);
     event Minted(address owner, uint256 tokenId);
     
-    address[] private contractAddresses;
-
     mapping(address => ERC721Token) private contracts;
 
-    // ERC721 contract address => (tokenID => owner address)
+    Collection[] private collections;
+    struct Collection {
+        address contractAddress;
+        address owner;
+        ERC721Token token;
+    }
+     
     mapping(address => mapping(uint256 => address)) private owners;
+    /*
+    address[] private contractAddresses;
+
+    
+
+    // ERC721 contract address => (tokenID => owner address)
+   
     
     // owner address => (ERC721 contract address => tableau de token id)
     mapping(address => mapping(address => uint256[])) private balances;
-    
+   
+*/
     function deployCollection(string memory _name, string memory _symbol) external payable returns(address) {
         bytes32 _salt = keccak256(abi.encodePacked(_name));
         ERC721Token token = new ERC721Token{salt: _salt}(_name, _symbol);
         address contractAddress = address(token);
+
+
+
         contracts[contractAddress] = token;
-        contractAddresses.push(contractAddress);
+        collections.push(Collection(contractAddress, msg.sender, token));
+
+
+
+
+
 
         emit CollectionCreated(contractAddress, msg.sender);
 
@@ -41,7 +61,6 @@ contract ERC721Factory {
     function mint(address _contractAddress, string memory _cid) public {
         uint256 tokenId = contracts[_contractAddress].mint(_cid);
         owners[_contractAddress][tokenId] = msg.sender;
-        balances[msg.sender][_contractAddress].push(tokenId);
 
         emit Minted(msg.sender, tokenId);
     }
@@ -56,7 +75,16 @@ contract ERC721Factory {
         return owners[_address][_tokenId];
     }
 
-    function getContratAddresses() public view returns(address[] memory) {
-        return contractAddresses;
+    function getOwnerCollections(address _owner) external view returns(Collection[] memory){
+        Collection[] memory tmp;
+        uint256 i;
+        for (uint256 index = 0; index < collections.length; index++) {
+            if(collections[index].token.balanceOf(_owner) > 0){
+                tmp[i] = collections[index];
+                i++;
+            }
+        }
+
+        return tmp;
     }
 }

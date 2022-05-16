@@ -12,7 +12,7 @@ const getWeb3ERC721Factory = async () => {
             ERC721Factory.abi,
             deployedNetwork && deployedNetwork.address,
         );
-            console.log('jfkd');
+            console.log('done');
         const accounts = await web3.eth.getAccounts();
         return [instanceContract, accounts];
     } catch (error) {

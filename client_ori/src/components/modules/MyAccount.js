@@ -18,15 +18,25 @@ function MyAccount() {
     //const [instanceContract, setInstanceContract] = useState({});
     const [userAddress, setUserAddress] = useState('');
     
-
+    
+    
     useEffect(() => {
       
         getWeb3ERC721Factory()
           .then((data) => {
-      //        setInstanceContract(data[0]);
+              // setInstanceContract(data[0]);
               setUserAddress(data[1][0]);  
+
+              data[0].methods.getOwnerCollections(data[1][0]).call()
+                .then((data) => {
+                    console.log(data);
+                })  
+                .catch(console.error);
+              
           })
           .catch((err) => console.log(err));
+
+         
     });
 
     return (
@@ -65,6 +75,13 @@ function MyAccount() {
                 <div id='zero1' className='onStep'>
                     <AccountColumnZero />
                 </div>
+            </section>
+
+            <section className='container no-top'>
+                <ul>
+                    <li>fdsqfds
+                    </li>
+                </ul>
             </section>
 
             <Footer />

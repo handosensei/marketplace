@@ -1,5 +1,6 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
+import getWeb3ERC721Factory from "../../getWeb3ERC721Factory";
 //import Clock from "./Clock";
 
 const Outer = styled.div`
@@ -183,6 +184,8 @@ function AccountColumnZero() {
     
     const [tokens, ] = useState(dummyData);
     const [height, setHeight] = useState(0);
+    const [userAddress, setUserAddress] = useState('');
+    const [instanceContract, setInstanceContract] = useState({});
     
     function onImgLoad(target) {
         let currentHeight = height;
@@ -190,6 +193,20 @@ function AccountColumnZero() {
             setHeight(target.offsetHeight);
         }
     }
+
+
+    useEffect(() => {
+        
+        getWeb3ERC721Factory()
+            .then((data) => {
+                setInstanceContract(data[0]);
+                setUserAddress(data[1][0]);  
+            })
+            .catch(console.error);
+
+        
+
+    }, []);
  
     return (
         <div className='row'>
