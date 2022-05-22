@@ -7,6 +7,8 @@ import Factory from "../contracts/Factory.json";
 
 export default function Profile() {
     const [collections, setCollections] = useState([]);    
+    const [account, setAccount] = useState("");    
+    const [instanceFactory, setInstanceFactory] = useState("");    
 
     const getWeb3Data = async () => {
         try {
@@ -37,12 +39,17 @@ export default function Profile() {
             let tokenAddress = collections[index];
             let metadataTokens = [];
             const tokenIds = await instanceFactory.methods.getOwnerTokenIdsByCollection(tokenAddress, account).call();
+            console.log(tokenIds);
+            if (tokenIds.length == 0) {
+                continue;
+            }
             for (let indexToken = 0; indexToken <= tokenIds.length - 1; indexToken++) {
                 const tokenId = tokenIds[indexToken];
                 const metadataUri = await instanceFactory.methods.getTokenURI(tokenAddress, tokenId).call();
                 const metadataToken = await axios.get(metadataUri).catch((err) => { console.log(err); });
-                console.log(metadataToken);
+                
                 metadataToken['data']['tokenId'] = tokenId;
+                metadataToken['data']['price'] = await instanceFactory.methods.getPrice(tokenAddress, tokenId).call();
                 
                 metadataTokens.push(metadataToken);
             }
@@ -55,6 +62,10 @@ export default function Profile() {
 
     function Collections() {
         
+        if (collections.length == 0) {
+            return (<div>no NFT</div>);
+        }
+
         return (<>
             {
                 collections.map((collection, i) => {
@@ -99,7 +110,9 @@ export default function Profile() {
                 <img src={metadata.image} className="img-thumbnail" style={{width: "100px", height: "auto"}} alt={metadata.name} />
                 <div className="card-body">
                     <h5 className="card-title">{metadata.collection} #{metadata.tokenId}</h5>
-                    {/* <a href="#" className="btn btn-primary">Go somewhere</a> */}
+                    
+                    {metadata.price != 0 && <p className="card-text">{metadata.price} ETH</p>}
+                    
                 </div>
             </Link>
         );
@@ -108,9 +121,9 @@ export default function Profile() {
     useEffect(() => {
         
         getWeb3Data().then((data) => {
-            const instanceFactory = data[0];
-            const account = data[1]
-            loadCollections(instanceFactory, account);
+            setInstanceFactory(data[0]);
+            setAccount(data[1]);
+            loadCollections(data[0], data[1]);
         });
 
     }, []);

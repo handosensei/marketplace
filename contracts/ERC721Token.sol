@@ -7,6 +7,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 contract ERC721Token is ERC721Enumerable {
 
     event Minted(address owner, uint256 tokenId);
+    event PriceEdited(uint256 tokenId, uint256 price);
 
     using Counters for Counters.Counter;
     using Strings for uint256;
@@ -15,18 +16,20 @@ contract ERC721Token is ERC721Enumerable {
 
     // Optional mapping for token URIs
     mapping(uint256 => string) private _tokenURIs;
-    
+
+    mapping(uint256 => uint256) private prices;
+
     constructor(string memory name_, string memory symbol_) ERC721(name_, symbol_) {}
 
     function mint(address _owner, string memory _uri) public returns(uint256) {
         _tokenIds.increment();        
-        uint256 newItemId = _tokenIds.current();
-        _mint(_owner, newItemId);
-        _setTokenURI(newItemId, _uri);
+        uint256 newTokenId = _tokenIds.current();
+        _mint(_owner, newTokenId);
+        _setTokenURI(newTokenId, _uri);
 
-        emit Minted(_owner, newItemId);
+        emit Minted(_owner, newTokenId);
 
-        return newItemId;
+        return newTokenId;
     }
 
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
@@ -50,5 +53,27 @@ contract ERC721Token is ERC721Enumerable {
     function _setTokenURI(uint256 tokenId, string memory _tokenURI) internal virtual {
         require(_exists(tokenId), "ERC721URIStorage: URI set of nonexistent token");
         _tokenURIs[tokenId] = _tokenURI;
+    }
+
+    function approve(address _to, uint256 _tokenId) public override(ERC721, IERC721) virtual {
+        _approve(_to, _tokenId);
+    }
+
+    function getAddressApprovalsByTokenId(uint256 _tokenId) public view returns(address) {
+        return getApproved(_tokenId);
+    }
+
+    function isApprovedOrOwner(address spender, uint256 tokenId) public view returns (bool) {
+        return _isApprovedOrOwner(spender, tokenId);
+    }
+
+    function setPrice(uint256 _tokenId, uint256 _price) external {
+        prices[_tokenId] = _price;
+
+        emit PriceEdited(_tokenId, _price);
+    }
+
+    function getPrice(uint256 _tokenId) public view returns(uint256) {
+        return prices[_tokenId];
     }
 }

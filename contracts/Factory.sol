@@ -51,4 +51,12 @@ contract Factory {
     function getCollectionName(address _tokenAddress) public view returns (string memory) {
         return ERC721Token(_tokenAddress).name();
     }
+
+    function setPrice(address _contractCollection, uint256 _tokenId, uint256 _price) external {
+        ERC721Token(_contractCollection).setPrice(_tokenId, _price);
+    }
+
+    function getPrice(address _contractCollection, uint256 _tokenId) public view returns (uint256) {
+        return ERC721Token(_contractCollection).getPrice(_tokenId);
+    }
 }
