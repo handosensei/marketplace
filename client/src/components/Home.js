@@ -18,6 +18,9 @@ export default function Home() {
     return (<>
         {
             collections.map((collection, i) => {
+                if (collection.tokens.length == 0) {
+                  return (<></>);
+                }
                 
                 return (
                     <div className="row" key={i}>
