@@ -59,4 +59,6 @@ contract Factory {
     function getPrice(address _contractCollection, uint256 _tokenId) public view returns (uint256) {
         return ERC721Token(_contractCollection).getPrice(_tokenId);
     }
+
+    function 
 }

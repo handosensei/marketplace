@@ -9,7 +9,7 @@ import Factory from "../contracts/Factory.json"
 import FormData from 'form-data';
 import axios from 'axios';
 
-import { useLocation, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const useForceUpdate = () => useState()[1];
 

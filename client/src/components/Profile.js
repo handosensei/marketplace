@@ -7,8 +7,8 @@ import Factory from "../contracts/Factory.json";
 
 export default function Profile() {
     const [collections, setCollections] = useState([]);    
-    const [account, setAccount] = useState("");    
-    const [instanceFactory, setInstanceFactory] = useState("");    
+    const [, setAccount] = useState("");    
+    const [, setInstanceFactory] = useState("");    
 
     const getWeb3Data = async () => {
         try {

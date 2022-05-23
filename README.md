@@ -24,18 +24,18 @@ Renseigner les variables d'environnements
 
 ## TODO
 
-- [] Liste des NFT à la vente
-- [] Liste des NFT possédés par l'utilisateur connecté
+- [x] Liste des NFT à la vente
+- [x] Liste des NFT possédés par l'utilisateur connecté
 - [x] Création d'une collection
 - [x] Ajouter un NFT à une collection
 
 ## Must to have
-- [] Déploiement sur HEROKU
+- [x] Déploiement sur HEROKU
 
 ## Nice to have
 - [] Système de royalties
 - [] Création de collection : Gestion des champs obligatoires
-- [] Ajouter un loader : page de creation de collection
+- [x] Ajouter un loader : page de creation de collection
 - [x] Ajouter un loader : page de creation de NFT
 - [] Utilisation de ERC1155
 - [] Tri de NFT par collection
@@ -45,7 +45,7 @@ Renseigner les variables d'environnements
 ## To deploy with HEROKU
 
 ```shell
-~ heroku create alyra-marketplace --buildpack mars/create-react-app
+~ heroku create rch-marketplace --buildpack mars/create-react-app
 ~ git subtree push --prefix client/ heroku master
 ```
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext } from "react";
+import React, {useEffect, useState } from "react";
 import { NotificationManager } from 'react-notifications';
 import { useParams, Link } from "react-router-dom";
 
@@ -16,7 +16,6 @@ export default function NFTDisplay() {
   const [image, setImage] = useState("");
   const [price, setPrice] = useState("");
   const [showPrice, setShowPrice] = useState(false);
-  const [, setInstanceSaleFactory] = useState("");
   const [instanceFactory, setInstanceFactory] = useState("");
   const [account, setAccount] = useState("");  
   const [showModal, setShowModal] = useState("");  
@@ -125,7 +124,7 @@ export default function NFTDisplay() {
             </li>
             <li>{collectionName}</li>
             <li>{tokenName}</li>
-            <li>{showPrice && 'On sale to ' + price + ' ETH'}</li>
+            <li>{showPrice && 'For sale to ' + price + ' ETH'}</li>
           </ul>
         </div>
       </div>
